@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block contents %}
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>로그인</h1>
+    </div>
+</div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                {{ error }}
+            </div>
+        </div>
+<div class="row mt-5">
+    <div class="col-12">
+        <form method="post" action=".">
+            {% csrf_token %}
+            <!-- .as_p : p tag로 각각의 폼을 감싸게 해줌 -->
+            <!-- as_table : 표처럼 됨 -->
+            <!-- for문으로 form 객체의 각각 요소에 접근 가능 -->
+            {% for field in form %}
+            <div class="form-group">
+                <!-- input 태그의 id 값 -->
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <!-- input 태그의 타입 값, input 태그의 id 값, form에서 따로 지정, form 클래스의 변수명 -->
+                <input type="{{ field.field.widget.input_type }}"
+                    class="form-control"
+                    id="{{ field.id_for_label }}"
+                    placeholder="{{ field.label }}"
+                    name="{{ field.name }}"/>
+            </div>
+            <!-- 에러메시지 추가 -->
+            {% if field.errors %}
+            <span style="color: red;">{{ field.errors }}</span>
+            {% endif %}
+
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

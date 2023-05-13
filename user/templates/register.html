@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block contents %}
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>회원가입</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <!--
+            expression block = 표현식 -> 출력을 담당한다. 파이썬 변수에 들어있는 값을 HTML로 표현해준다.
+            syntax block = 파이썬 문법 블록 -> 파이썬의 문법적인 부분 담당, 실제 파이썬과 다른 부분 존재
+            render(request, template, attribute) 템플릿 엔진에 template과 attr가 들어감
+            HTML에서 파이썬 코드를 쓸 수 있음
+        -->
+        <!-- expression block : attr 중 error 키를 찾아서 표현 -->
+        {{ error }} 
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <form method="post" action=".">
+            <!-- syntax block -->
+            {% csrf_token %} <!-- Cross Site Request Forgery 공격을 막기위한 토큰을 세션에 저장하고 백엔드에서 세션 저장값과 요청 파라미터에 전달된 값하고 대조해봄 -->>
+            <div class="form-group">
+                <label for="user_id">사용자 이름</label>
+                <input type="text" class="form-control" id="user_id" placeholder="사용자 이름" name="user_id">
+            </div>
+            <div class="form-group">
+                <label for="useremail">사용자 이메일</label>
+                <input type="email" class="form-control" id="useremail" placeholder="사용자 이메일" name="useremail">
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" placeholder="비밀번호" name="password">
+            </div>
+                                <div class="form-group">
+                <label for="re-password">비밀번호 확인</label>
+                <input type="password" class="form-control" id="re-password" placeholder="비밀번호 확인" name="re-password">
+            </div>
+            <button type="submit" class="btn btn-primary">등록</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
